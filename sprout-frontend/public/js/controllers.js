@@ -82,6 +82,6 @@ angular.module('sproutApp.controllers', [])
         $scope.session = SessionService.getSession();
 
         Restangular.all('recipes').getList().then(function (data) {
-            $scope.recipes = data;
+            $scope.recipes = data; // Put the server's response into $scope.recipes.
         });
     });
