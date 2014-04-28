@@ -11,7 +11,8 @@ urlpatterns = patterns(
     url(r'^users$', UserList.as_view(), name='user-list'),
     url(r'^users/(?P<pk>[0-9]+)$', UserDetail.as_view(), name='user-detail'),
     url(r'^recipes$', RecipeList.as_view(), name='recipe-list'),
-    url(r'^recipes/(?P<pk>[0-9]+)$', RecipeDetail.as_view(), name='recipe-detail')
+    url(r'^recipes/(?P<pk>[0-9]+)$', RecipeDetail.as_view(), name='recipe-detail'),
+    # url(r'^nested-recipes/(?P<pk>[0-9]+)$', NestedRecipeDetail.as_view(), name='recipe-detail')
 )
 
 urlpatterns += patterns('',

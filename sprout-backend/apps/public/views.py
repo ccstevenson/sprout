@@ -17,6 +17,29 @@ from .models import *
 from .serializers import *
 
 
+# class NestedGETListCreate(generics.ListCreateAPIView):
+#     def get_serializer_class(self):
+#         if self.request.method == 'GET':
+#             if self.request.GET.get('nested') == 'true':
+#                 return self.nested_serializer
+#         return self.serializer_class
+#
+#
+# class NestedGETRUD(generics.RetrieveUpdateDestroyAPIView):
+#     def get_serializer_class(self):
+#         if self.request.method == 'GET':
+#             if self.request.GET.get('nested') == 'true':
+#                 return self.nested_serializer
+#         return self.serializer_class
+
+
+class UserList(generics.ListCreateAPIView):
+    """List all users or create a new User"""
+    permission_classes = (permissions.IsAuthenticated,)
+    model = User
+    serializer_class = UserSerializer
+
+
 class RecipeList(generics.ListCreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     model = Recipe
@@ -29,13 +52,6 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Recipe
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
-# Create your views here.
-
-class UserList(generics.ListCreateAPIView):
-    """List all users or create a new User"""
-    permission_classes = (permissions.IsAuthenticated,)
-    model = User
-    serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):

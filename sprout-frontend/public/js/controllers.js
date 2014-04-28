@@ -22,7 +22,7 @@ angular.module('sproutApp.controllers', [])
         });
     }])
     .controller('AddRecipeController', function($scope, SessionService, Restangular) {
-        $scope.recipe = {};
+        $scope.recipe = { ingredients: [] };
         $scope.status = null;
         $scope.methods = [
             { printed_name: 'Bake', stored_name: 'bake' },
@@ -33,7 +33,7 @@ angular.module('sproutApp.controllers', [])
         $scope.saveNewRecipe = function() {
             Restangular.all('recipes').customPOST($scope.recipe).then(function() {
                 $scope.status = "The recipe was successfully created!";
-                $scope.recipe = {};
+                $scope.recipe = { ingredients: [] };
             }, function() {
                 $scope.status = "The recipe couldn't be saved";
             });
@@ -74,13 +74,11 @@ angular.module('sproutApp.controllers', [])
     .controller('RecipeDetailsController', function($scope, SessionService, Restangular, $routeParams) {
         $scope.recipeId = $routeParams.recipeId;
 
-        Restangular.one('recipes', $scope.recipeId).customGET().then(function (data) {
+        Restangular.one('recipes', $scope.recipeId).get({nested: 'true'}).then(function (data) {
             $scope.recipe = data;
         })
     })
     .controller('RecipeController', function($scope, SessionService, Restangular) {
-        $scope.session = SessionService.getSession();
-
         Restangular.all('recipes').getList().then(function (data) {
             $scope.recipes = data; // Put the server's response into $scope.recipes.
         });

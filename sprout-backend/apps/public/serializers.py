@@ -10,10 +10,23 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+
+
 class RecipeSerializer(serializers.ModelSerializer):
+    ingredients = IngredientSerializer(many=True)
+
     class Meta:
         model = Recipe
 
+
+# class RecipeNestedSerializer(serializers.ModelSerializer):
+#     ingredients = IngredientSerializer(many=True)
+#
+#     class Meta:
+#         model = Recipe
 
 # class AddressSerializer(serializers.ModelSerializer):
 #     """Serializes an Address object"""
